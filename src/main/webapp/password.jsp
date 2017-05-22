@@ -59,12 +59,12 @@
 						class="fa fa-fw fa-table"></i>个人信息</a></li>
 				<li><a href="password.jsp"><i class="fa fa-fw fa-table"></i>修改密码</a>
 				</li>
+				<!-- <li><a href="employeeManager.action"><i class="fa fa-fw fa-table"></i>员工管理</a>
+				</li> -->
 				<c:if test="${sessionScope.employee.employeeLimitId == 1 }">
 					<li><a href="employeeManager.action" id="employeeManager"><i
 							class="fa fa-fw fa-table"></i>员工管理</a></li>
 				</c:if>
-				<!-- <li><a href="employeeManager.action" ><i class="fa fa-fw fa-table"></i>员工管理</a>
-				</li> -->
 				<li><a href="showGoods.action"><i class="fa fa-fw fa-table"></i>商品管理</a>
 				</li>
 				<li><a href="showOrders.action"><i
@@ -80,10 +80,45 @@
 				<!-- Page Heading -->
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">欢迎使用在线商城后台管理系统</h1>
+						<h1 class="page-header">修改密码</h1>
+						<ol class="breadcrumb">
+							<li><a href="index.jsp">后台管理</a></li>
+							<li class="active"><i class="fa fa-table"></i> 修改密码</li>
+						</ol>
 					</div>
 				</div>
 				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-6">
+
+						<form role="form" method="post">
+
+							<div class="form-group">
+								<label>旧密码</label> <input class="form-control"
+									placeholder="请输入您的旧密码" type="password" name="oldPassword"
+									id="oldPassword">
+							</div>
+
+							<div class="form-group">
+								<label>新密码</label> <input class="form-control"
+									placeholder="请输入您的新密码" type="password" name="newPassword"
+									id="newPassword">
+							</div>
+
+							<div class="form-group">
+								<label>确认密码</label> <input class="form-control"
+									placeholder="请重复您的新密码" type="password" name="secondPassword"
+									id="secondPassword">
+							</div>
+							<button type="button" onclick="chPassword()"
+								class="btn btn-default">提交</button>
+
+						</form>
+
+					</div>
+				</div>
+
 			</div>
 			<!-- /.container-fluid -->
 
@@ -99,6 +134,32 @@
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
+
+	<script charset="UTF-8" type="text/javascript">
+		function chPassword() {
+			var message = {
+				oldPassword : $("#oldPassword").val(),
+				newPassword : $("#newPassword").val(),
+				secondPassword : $("#secondPassword").val()
+			};
+			$.ajax({
+				type : "post",
+				url : "chPassword.action",
+				data : message,
+				dataType : "text",
+				success : function(data) {
+					console.log(data);
+					alert(data);
+					$("#oldPassword").val("");
+					$("#newPassword").val("");
+					$("#secondPassword").val("");
+				},
+				error : function(msg) {
+					console.log(msg);
+				},
+			});
+		};
+	</script>
 
 </body>
 </html>

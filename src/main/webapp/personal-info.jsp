@@ -9,7 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-
 <title>在线商城 - 后台管理系统</title>
 
 <!-- Bootstrap Core CSS -->
@@ -59,12 +58,11 @@
 						class="fa fa-fw fa-table"></i>个人信息</a></li>
 				<li><a href="password.jsp"><i class="fa fa-fw fa-table"></i>修改密码</a>
 				</li>
+				<!-- <li><a href="employeeManager.action"><i class="fa fa-fw fa-table"></i>员工管理</a></li> -->
 				<c:if test="${sessionScope.employee.employeeLimitId == 1 }">
 					<li><a href="employeeManager.action" id="employeeManager"><i
 							class="fa fa-fw fa-table"></i>员工管理</a></li>
 				</c:if>
-				<!-- <li><a href="employeeManager.action" ><i class="fa fa-fw fa-table"></i>员工管理</a>
-				</li> -->
 				<li><a href="showGoods.action"><i class="fa fa-fw fa-table"></i>商品管理</a>
 				</li>
 				<li><a href="showOrders.action"><i
@@ -80,10 +78,43 @@
 				<!-- Page Heading -->
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">欢迎使用在线商城后台管理系统</h1>
+						<h1 class="page-header">个人信息</h1>
+						<ol class="breadcrumb">
+							<li><a href="index.jsp">后台管理</a></li>
+							<li class="active"><i class="fa fa-table"></i> 个人信息</li>
+						</ol>
 					</div>
 				</div>
 				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-6">
+						<form role="form" method="post">
+
+							<div class="form-group">
+								<label>昵称</label> <input class="form-control"
+									value="${sessionScope.employee.name }" placeholder="请输入昵称"
+									name="newName" id="newName">
+							</div>
+
+							<div class="form-group">
+								<label>邮箱</label> <input class="form-control"
+									value="${sessionScope.employee.email }" placeholder="请输入您的邮箱"
+									name="email" id="email">
+							</div>
+
+							<div class="form-group">
+								<label>电话</label> <input class="form-control"
+									value="${sessionScope.employee.phone }" placeholder="请输入您的电话"
+									name="phone" id="phone">
+							</div>
+							<button onclick="change()" type="button" class="btn btn-default">保存修改</button>
+
+						</form>
+
+					</div>
+				</div>
+
 			</div>
 			<!-- /.container-fluid -->
 
@@ -97,8 +128,43 @@
 	<script src="js/jquery.js"></script>
 	<script src="js/admin.js"></script>
 
+	<script type="text/javascript">
+		
+	</script>
+
 	<!-- Bootstrap Core JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+		function change() {
+			var message = {
+				newName : $("#newName").val(),
+				email : $("#email").val(),
+				phone : $("#phone").val()
+			};
+
+			if (!(/^1[34578]\d{9}$/.test(message.phone))) {
+				alert("手机号码有误，请重填");
+				return false;
+			}
+
+			$.ajax({
+				type : "post",
+				url : "personalInfo.action",
+				data : message,
+				dataType : "text",
+				success : function() {
+					alert("修改成功");
+					location.reload();
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log(XMLHttpRequest.status);
+					console.log(XMLHttpRequest.readyState);
+					console.log(textStatus);
+				},
+			});
+		};
+	</script>
 
 </body>
 </html>

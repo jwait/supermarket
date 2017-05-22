@@ -10,12 +10,15 @@
 	<mvc:annotation-driven />
 	<!-- 视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="prefix" value="/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	<!-- 包扫描器，扫描@Controller注解 -->
 	<context:component-scan base-package="com.controller" />
 	<!-- 配置资源映射 -->
-	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
-	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/font-awesome/" mapping="/font-awesome/**"/>
+	<mvc:resources location="/datejs/" mapping="/datejs/**"/>
+	<mvc:resources location="/datecss/" mapping="/datecss/**"/>
 </beans>
