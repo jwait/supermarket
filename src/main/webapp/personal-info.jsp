@@ -59,7 +59,7 @@
 				<li><a href="password.jsp"><i class="fa fa-fw fa-table"></i>修改密码</a>
 				</li>
 				<!-- <li><a href="employeeManager.action"><i class="fa fa-fw fa-table"></i>员工管理</a></li> -->
-				<c:if test="${sessionScope.employee.employeeLimitId == 1 }">
+				<c:if test="${sessionScope.employee.employeeLimit.level == 'A' }">
 					<li><a href="employeeManager.action" id="employeeManager"><i
 							class="fa fa-fw fa-table"></i>员工管理</a></li>
 				</c:if>

@@ -116,7 +116,7 @@
 										<td class="price">${row.price}</td>
 										<td class="type">${row.goodsType.name}</td>
 										<td class="discount">${row.discount}</td>
-										<td class="date">${row.creatDate}</td>
+										<td class="date">${row.createDate}</td>
 										<td class="expired-date">${row.expiryDate}</td>
 										<td class="offerBy">${row.producer}</td>
 										<td class="size">${row.size}</td>

@@ -13,11 +13,11 @@ public interface EmployeeService {
 	
 	Employee getEmployeeById(String employeeId);
 
-	void updateEmployee(Employee employee);
+	int updateEmployee(Employee employee);
 
-	void deleteEmployee(String employeeId);
+	int deleteEmployee(Employee employee);
 
-	void insertEmployee(Employee employee);
+	int insertEmployee(Employee employee);
 
 	/**
 	 * 
@@ -31,6 +31,6 @@ public interface EmployeeService {
 
 	String chPassword(HttpServletRequest request, HttpServletResponse response);
 
-	void deleteEmployee(HttpServletRequest request, HttpServletResponse response);
+	int deleteEmployee(HttpServletRequest request, HttpServletResponse response);
 
-	void chEmployee(HttpServletRequest request, HttpServletResponse response);}
+	int chEmployee(HttpServletRequest request, HttpServletResponse response);}

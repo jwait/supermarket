@@ -11,10 +11,12 @@ public class Employee {
 
     private String email;
 
-    private Integer employeeLimitId;
+    private EmployeeLimit employeeLimit;
 
     private String password;
 
+    private String isdelete;
+    
     public Integer getId() {
         return id;
     }
@@ -54,20 +56,30 @@ public class Employee {
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
     }
+    
+    public EmployeeLimit getEmployeeLimit() {
+		return employeeLimit;
+	}
 
-    public Integer getEmployeeLimitId() {
-        return employeeLimitId;
-    }
+	public void setEmployeeLimit(EmployeeLimit employeeLimit) {
+		this.employeeLimit = employeeLimit;
+	}
 
-    public void setEmployeeLimitId(Integer employeeLimitId) {
-        this.employeeLimitId = employeeLimitId;
-    }
-
-    public String getPassword() {
+	public String getPassword() {
         return password;
     }
-
-    public void setPassword(String password) {
+	
+	public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
     }
+	
+	public String getIsdelete() {
+		return isdelete;
+	}
+
+	public void setIsdelete(String isdelete) {
+		this.isdelete = isdelete;
+	}
+
+	
 }

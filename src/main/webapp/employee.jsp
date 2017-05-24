@@ -60,7 +60,7 @@
 						class="fa fa-fw fa-table"></i>个人信息</a></li>
 				<li><a href="password.jsp"><i class="fa fa-fw fa-table"></i>修改密码</a>
 				</li>
-				<c:if test="${sessionScope.employee.employeeLimitId == 1 }">
+				<c:if test="${sessionScope.employee.employeeLimit.level == 'A' }">
 					<li><a href="employeeManager.action" id="employeeManager"><i
 							class="fa fa-fw fa-table"></i>员工管理</a></li>
 				</c:if>
@@ -105,13 +105,13 @@
 							<tbody>
 								<c:forEach var="row" items="${employees }">
 									<tr>
-										<td class="eID">${row.eID}</td>
+										<td class="eID">${row.eid}</td>
 										<td class="eName">${row.name}</td>
 										<td class="phoneNum">${row.phone}</td>
 										<td class="email">${row.email}</td>
 										<td class="permission">${row.employeeLimit.level}</td>
 										<td><a href="#" class="employee-modify">修改</a> <a
-											href="#" onclick="deleteEmp('${row.eID}')"
+											href="#" onclick="deleteEmp('${row.eid}')"
 											style="float: right; color: red;" class="delete-employee">删除</a></td>
 									</tr>
 								</c:forEach>

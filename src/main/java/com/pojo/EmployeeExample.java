@@ -573,6 +573,76 @@ public class EmployeeExample {
             addCriterion("password not between", value1, value2, "password");
             return (Criteria) this;
         }
+
+        public Criteria andIsdeleteIsNull() {
+            addCriterion("isdelete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteIsNotNull() {
+            addCriterion("isdelete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteEqualTo(String value) {
+            addCriterion("isdelete =", value, "isdelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteNotEqualTo(String value) {
+            addCriterion("isdelete <>", value, "isdelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteGreaterThan(String value) {
+            addCriterion("isdelete >", value, "isdelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteGreaterThanOrEqualTo(String value) {
+            addCriterion("isdelete >=", value, "isdelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteLessThan(String value) {
+            addCriterion("isdelete <", value, "isdelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteLessThanOrEqualTo(String value) {
+            addCriterion("isdelete <=", value, "isdelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteLike(String value) {
+            addCriterion("isdelete like", value, "isdelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteNotLike(String value) {
+            addCriterion("isdelete not like", value, "isdelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteIn(List<String> values) {
+            addCriterion("isdelete in", values, "isdelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteNotIn(List<String> values) {
+            addCriterion("isdelete not in", values, "isdelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteBetween(String value1, String value2) {
+            addCriterion("isdelete between", value1, value2, "isdelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdeleteNotBetween(String value1, String value2) {
+            addCriterion("isdelete not between", value1, value2, "isdelete");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -16,33 +16,39 @@ public class EmployeeDao {
 	@Autowired
 	private EmployeeMapper employeeMapper;
 	
-	public void insertEmployee(Employee employee){
-		employeeMapper.insert(employee);
+	public int insertEmployee(Employee employee){
+		employee.setPassword("123456");
+		employee.setIsdelete("N");
+		return employeeMapper.insert(employee);
 	}
 
-	public void deleteEmployee(String employeeId){
-		EmployeeExample example = new EmployeeExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andEidEqualTo(employeeId);
-		employeeMapper.deleteByExample(example);
+	public int deleteEmployee(Employee employee){
+		employee.setIsdelete("Y");;
+		return employeeMapper.updateByPrimaryKey(employee);
 	}
 	
 	public Employee getEmployeeById(String employeeId){
 		EmployeeExample example = new EmployeeExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andEidEqualTo(employeeId);
+		criteria.andIsdeleteEqualTo("N");
 		List<Employee> list = employeeMapper.selectByExample(example);
+		if(list == null || list.size() == 0){
+			return null;
+		}
 		return list.get(0);
 	}
 	
 	public List<Employee> selectEmployees(){
 		EmployeeExample example = new EmployeeExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIsdeleteEqualTo("N");
 		List<Employee> list = employeeMapper.selectByExample(example);
 		return list;
 	}
 	
-	public void updateEmployee(Employee employee){
-		employeeMapper.updateByPrimaryKey(employee);
+	public int updateEmployee(Employee employee){
+		return employeeMapper.updateByPrimaryKey(employee);
 	}
 	
 }

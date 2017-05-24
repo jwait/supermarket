@@ -24,24 +24,32 @@ public class GoodsDao {
 		GoodsExample example = new GoodsExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andNameEqualTo(goodsName);
+		criteria.andIsdeleteEqualTo("N");
 		List<Goods> list = goodsMapper.selectByExample(example);
+		if(list == null || list.size() == 0){
+			return null;
+		}
 		return list.get(0);
 	}
 
 	public List<Goods> selectGoods(){
 		GoodsExample example = new GoodsExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIsdeleteEqualTo("N");
 		return goodsMapper.selectByExample(example);
 	}
 
-	public void updateGoods(Goods goods){
-		goodsMapper.updateByPrimaryKey(goods);
+	public int updateGoods(Goods goods){
+		return goodsMapper.updateByPrimaryKey(goods);
 	}
 
-	public void deleteGoodsById(int goodsId){
-		goodsMapper.deleteByPrimaryKey(goodsId);
+	public int deleteGoodsById(int goodsId){
+		Goods goods = getGoodsById(goodsId);
+		goods.setIsdelete("Y");
+		return goodsMapper.updateByPrimaryKey(goods);
 	}
 
-	public void insertGoods(Goods goods){
-		goodsMapper.insert(goods);
+	public int insertGoods(Goods goods){
+		return goodsMapper.insert(goods);
 	}
 }

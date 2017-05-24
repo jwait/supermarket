@@ -29,7 +29,7 @@ public class OrderDao {
 		return list.get(0);
 	}
 
-	public void updateOrder(Order order){
-		orderMapper.updateByPrimaryKey(order);
+	public int updateOrder(Order order){
+		return orderMapper.updateByPrimaryKey(order);
 	}
 }

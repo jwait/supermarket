@@ -7,8 +7,10 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="employee_limit_id" property="employeeLimitId" jdbcType="INTEGER" />
     <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="isdelete" property="isdelete" jdbcType="VARCHAR" />
+  	<association column="employee_limit_id" property="employeeLimit"
+			javaType="com.pojo.EmployeeLimit" select="getLimitById"/>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,8 +71,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, eID, name, phone, email, employee_limit_id, password
+    id, eID, name, phone, email, employee_limit_id, password, isdelete
   </sql>
+  <select id="getLimitById" resultType="com.pojo.EmployeeLimit"
+		parameterType="int">
+	select id, level from employee_limit where id = #{id}
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.EmployeeExample" >
     select
     <if test="distinct" >
@@ -104,10 +110,10 @@
   <insert id="insert" parameterType="com.pojo.Employee" >
     insert into employee (id, eID, name, 
       phone, email, employee_limit_id, 
-      password)
+      password, isdelete)
     values (#{id,jdbcType=INTEGER}, #{eid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{employeeLimitId,jdbcType=INTEGER}, 
-      #{password,jdbcType=VARCHAR})
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{employeeLimit.id,jdbcType=INTEGER}, 
+      #{password,jdbcType=VARCHAR}, #{isdelete,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.pojo.Employee" >
     insert into employee
@@ -127,11 +133,14 @@
       <if test="email != null" >
         email,
       </if>
-      <if test="employeeLimitId != null" >
+      <if test="employeeLimit != null" >
         employee_limit_id,
       </if>
       <if test="password != null" >
         password,
+      </if>
+      <if test="isdelete != null" >
+        isdelete,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -150,11 +159,14 @@
       <if test="email != null" >
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="employeeLimitId != null" >
-        #{employeeLimitId,jdbcType=INTEGER},
+      <if test="employeeLimit != null" >
+        #{employeeLimit.id,jdbcType=INTEGER},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -182,11 +194,14 @@
       <if test="record.email != null" >
         email = #{record.email,jdbcType=VARCHAR},
       </if>
-      <if test="record.employeeLimitId != null" >
-        employee_limit_id = #{record.employeeLimitId,jdbcType=INTEGER},
+      <if test="record.employeeLimit != null" >
+        employee_limit_id = #{record.employeeLimit.id,jdbcType=INTEGER},
       </if>
       <if test="record.password != null" >
         password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isdelete != null" >
+        isdelete = #{record.isdelete,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -200,8 +215,9 @@
       name = #{record.name,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
-      employee_limit_id = #{record.employeeLimitId,jdbcType=INTEGER},
-      password = #{record.password,jdbcType=VARCHAR}
+      employee_limit_id = #{record.employeeLimit.id,jdbcType=INTEGER},
+      password = #{record.password,jdbcType=VARCHAR},
+      isdelete = #{record.isdelete,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -221,11 +237,14 @@
       <if test="email != null" >
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="employeeLimitId != null" >
-        employee_limit_id = #{employeeLimitId,jdbcType=INTEGER},
+      <if test="employeeLimit != null" >
+        employee_limit_id = #{employeeLimit.id,jdbcType=INTEGER},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        isdelete = #{isdelete,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -236,8 +255,9 @@
       name = #{name,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
-      employee_limit_id = #{employeeLimitId,jdbcType=INTEGER},
-      password = #{password,jdbcType=VARCHAR}
+      employee_limit_id = #{employeeLimit.id,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      isdelete = #{isdelete,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

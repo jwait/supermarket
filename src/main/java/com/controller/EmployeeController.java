@@ -29,7 +29,7 @@ public class EmployeeController {
 		return "employee";
 	}
 	
-	@RequestMapping("/personInfo")
+	@RequestMapping("/personalInfo")
 	public String updateEmployee(HttpServletRequest request, HttpServletResponse response){
 		employeeService.updatePersonalInfo(request, response);
 		return "personal-info";
@@ -48,17 +48,17 @@ public class EmployeeController {
 	
 	@RequestMapping("/chEmployee")
 	public void chEmployee(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		employeeService.chEmployee(request, response);
+		int result = employeeService.chEmployee(request, response);
 		PrintWriter out = response.getWriter();
-		out.println("修改成功");
+		out.println(result);
 		out.close();
 	}
 	
 	@RequestMapping("/deleteEmployee")
 	public void deleteEmployee(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		employeeService.deleteEmployee(request, response);
+		int result = employeeService.deleteEmployee(request, response);
 		PrintWriter out = response.getWriter();
-		out.println("删除成功");
+		out.println(result);
 		out.close();
 	}
 	

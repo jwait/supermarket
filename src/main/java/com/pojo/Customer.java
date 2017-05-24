@@ -14,7 +14,7 @@ public class Customer {
     private String phone;
 
     private String isdelete;
-
+    
     public Integer getId() {
         return id;
     }

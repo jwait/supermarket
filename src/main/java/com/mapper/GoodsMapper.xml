@@ -4,16 +4,18 @@
   <resultMap id="BaseResultMap" type="com.pojo.Goods" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="discount" property="discount" jdbcType="DOUBLE" />
     <result column="create_date" property="createDate" jdbcType="DATE" />
     <result column="expiry_date" property="expiryDate" jdbcType="INTEGER" />
     <result column="size" property="size" jdbcType="VARCHAR" />
     <result column="producer" property="producer" jdbcType="VARCHAR" />
-    <result column="goods_type_id" property="goodsTypeId" jdbcType="INTEGER" />
     <result column="desc" property="desc" jdbcType="VARCHAR" />
     <result column="isdelete" property="isdelete" jdbcType="VARCHAR" />
+  	<association property="goodsType" column="goods_type_id"
+			javaType="com.pojo.GoodsType" select="com.mapper.GoodsTypeMapper.selectByPrimaryKey" />
+	<association property="goodsSum" column="id"
+		javaType="com.pojo.GoodsSum" select="com.mapper.GoodsSumMapper.selectByPrimaryKey" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, url, price, discount, create_date, expiry_date, size, producer, goods_type_id, 
-    desc, isdelete
+    id, name, price, discount, create_date, expiry_date, size, producer, goods_type_id, 
+    `desc`, isdelete
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.GoodsExample" >
     select
@@ -108,16 +110,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pojo.Goods" >
-    insert into goods (id, name, url, 
-      price, discount, create_date, 
-      expiry_date, size, producer, 
-      goods_type_id, desc, isdelete
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE}, #{createDate,jdbcType=DATE}, 
-      #{expiryDate,jdbcType=INTEGER}, #{size,jdbcType=VARCHAR}, #{producer,jdbcType=VARCHAR}, 
-      #{goodsTypeId,jdbcType=INTEGER}, #{desc,jdbcType=VARCHAR}, #{isdelete,jdbcType=VARCHAR}
-      )
+    insert into goods (id, name, price, 
+      discount, create_date, expiry_date, 
+      size, producer, goods_type_id, 
+      `desc`, isdelete)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+      #{discount,jdbcType=DOUBLE}, #{createDate,jdbcType=DATE}, #{expiryDate,jdbcType=INTEGER}, 
+      #{size,jdbcType=VARCHAR}, #{producer,jdbcType=VARCHAR}, #{goodsTypeId,jdbcType=INTEGER}, 
+      #{desc,jdbcType=VARCHAR}, #{isdelete,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.pojo.Goods" >
     insert into goods
@@ -127,9 +127,6 @@
       </if>
       <if test="name != null" >
         name,
-      </if>
-      <if test="url != null" >
-        url,
       </if>
       <if test="price != null" >
         price,
@@ -153,7 +150,7 @@
         goods_type_id,
       </if>
       <if test="desc != null" >
-        desc,
+        `desc`,
       </if>
       <if test="isdelete != null" >
         isdelete,
@@ -165,9 +162,6 @@
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
       </if>
       <if test="price != null" >
         #{price,jdbcType=DOUBLE},
@@ -213,9 +207,6 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.url != null" >
-        url = #{record.url,jdbcType=VARCHAR},
-      </if>
       <if test="record.price != null" >
         price = #{record.price,jdbcType=DOUBLE},
       </if>
@@ -238,7 +229,7 @@
         goods_type_id = #{record.goodsTypeId,jdbcType=INTEGER},
       </if>
       <if test="record.desc != null" >
-        desc = #{record.desc,jdbcType=VARCHAR},
+        `desc` = #{record.desc,jdbcType=VARCHAR},
       </if>
       <if test="record.isdelete != null" >
         isdelete = #{record.isdelete,jdbcType=VARCHAR},
@@ -252,7 +243,6 @@
     update goods
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      url = #{record.url,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DOUBLE},
       discount = #{record.discount,jdbcType=DOUBLE},
       create_date = #{record.createDate,jdbcType=DATE},
@@ -260,7 +250,7 @@
       size = #{record.size,jdbcType=VARCHAR},
       producer = #{record.producer,jdbcType=VARCHAR},
       goods_type_id = #{record.goodsTypeId,jdbcType=INTEGER},
-      desc = #{record.desc,jdbcType=VARCHAR},
+      `desc` = #{record.desc,jdbcType=VARCHAR},
       isdelete = #{record.isdelete,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -271,9 +261,6 @@
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
-        url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="price != null" >
         price = #{price,jdbcType=DOUBLE},
@@ -297,7 +284,7 @@
         goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
       </if>
       <if test="desc != null" >
-        desc = #{desc,jdbcType=VARCHAR},
+        `desc` = #{desc,jdbcType=VARCHAR},
       </if>
       <if test="isdelete != null" >
         isdelete = #{isdelete,jdbcType=VARCHAR},
@@ -308,7 +295,6 @@
   <update id="updateByPrimaryKey" parameterType="com.pojo.Goods" >
     update goods
     set name = #{name,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
       discount = #{discount,jdbcType=DOUBLE},
       create_date = #{createDate,jdbcType=DATE},
@@ -316,7 +302,7 @@
       size = #{size,jdbcType=VARCHAR},
       producer = #{producer,jdbcType=VARCHAR},
       goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
-      desc = #{desc,jdbcType=VARCHAR},
+      `desc` = #{desc,jdbcType=VARCHAR},
       isdelete = #{isdelete,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

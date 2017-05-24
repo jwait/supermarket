@@ -1,19 +1,17 @@
 package com.pojo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Goods {
     private Integer id;
 
     private String name;
 
-    private String url;
-
     private Double price;
 
     private Double discount;
 
-    private Date createDate;
+    private String createDate;
 
     private Integer expiryDate;
 
@@ -26,7 +24,27 @@ public class Goods {
     private String desc;
 
     private String isdelete;
-
+    
+    private GoodsType goodsType;
+    
+    private GoodsSum goodsSum;
+    
+    public Goods() {
+    	super();
+    }
+    
+    public Goods(String name, double price, double discount, String createDate, int expiryDate, String producer,
+			String size) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.discount = discount;
+		this.createDate = createDate;
+		this.expiryDate = expiryDate;
+		this.producer = producer;
+		this.size = size;
+	}
+    
     public Integer getId() {
         return id;
     }
@@ -41,14 +59,6 @@ public class Goods {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
     }
 
     public Double getPrice() {
@@ -67,11 +77,11 @@ public class Goods {
         this.discount = discount;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
@@ -122,4 +132,21 @@ public class Goods {
     public void setIsdelete(String isdelete) {
         this.isdelete = isdelete == null ? null : isdelete.trim();
     }
+
+	public GoodsType getGoodsType() {
+		return goodsType;
+	}
+
+	public void setGoodsType(GoodsType goodsType) {
+		this.goodsType = goodsType;
+	}
+
+	public GoodsSum getGoodsSum() {
+		return goodsSum;
+	}
+
+	public void setGoodsSum(GoodsSum goodsSum) {
+		this.goodsSum = goodsSum;
+	}
+    
 }

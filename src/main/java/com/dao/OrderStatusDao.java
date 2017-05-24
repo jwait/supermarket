@@ -15,4 +15,10 @@ public class OrderStatusDao {
 	public OrderStatus getOrderStatusById(int orderStatusId){
 		return orderStatusMapper.selectByPrimaryKey(orderStatusId);
 	}
+	
+//	public int createOrder(String status){
+//		OrderStatus orderStatus = new OrderStatus();
+//		orderStatus.setStatus(status);
+//		return orderStatusMapper.insert(orderStatus);
+//	}
 }

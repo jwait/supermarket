@@ -36,18 +36,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public void updateEmployee(Employee employee) {
-		employeeDao.updateEmployee(employee);
+	public int updateEmployee(Employee employee) {
+		return employeeDao.updateEmployee(employee);
 	}
 
 	@Override
-	public void insertEmployee(Employee employee) {
-		employeeDao.insertEmployee(employee);
+	public int insertEmployee(Employee employee) {
+		return employeeDao.insertEmployee(employee);
 	}
 	
 	@Override
-	public void deleteEmployee(String employeeId) {
-		employeeDao.deleteEmployee(employeeId);
+	public int deleteEmployee(Employee employee) {
+		return employeeDao.deleteEmployee(employee);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employee = getEmployeeById(employeeId);
 		if(employee == null || !employee.getPassword().equals(password)){
 			Utils.printScript(response, "ID或者密码不正确");
-		} else if(employeeLimitDao.getLimitById(employee.getEmployeeLimitId()).getLevel().equals(limit)){
+		} else if(employee.getEmployeeLimit().getLevel().equals(limit)){
 			request.getSession().setAttribute("employee", employee);
 			return "index";
 		} else{
@@ -113,37 +113,35 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void deleteEmployee(HttpServletRequest request, HttpServletResponse response) {
+	public int deleteEmployee(HttpServletRequest request, HttpServletResponse response) {
 		String employeeId = request.getParameter("id");
-		deleteEmployee(employeeId);
+		return deleteEmployee(employeeDao.getEmployeeById(employeeId));
 	}
 
 	@Override
-	public void chEmployee(HttpServletRequest request, HttpServletResponse response) {
+	public int chEmployee(HttpServletRequest request, HttpServletResponse response) {
 		String employeeId = request.getParameter("employeeId");
-		String employeeName = request.getParameter("employee");
+		String employeeName = request.getParameter("employeeName");
 		String employeePhone = request.getParameter("employeePhone");
 		String employeeEmail = request.getParameter("employeeEmail");
-		String employeeLimit = request.getParameter("employeeLimit");
+		String level = request.getParameter("employeeLimit");
 		Employee employee = getEmployeeById(employeeId);
-		
+		EmployeeLimit employeeLimit = employeeLimitDao.getEmployeeLimitByLevel(level);
 		if(employee != null){
 			employee.setEid(employeeId);
 			employee.setName(employeeName);
 			employee.setEmail(employeeEmail);
 			employee.setPhone(employeePhone);
-			Integer limitId = employeeLimitDao.getEmployeeLimitByLevel(employeeLimit).getId();
-			employee.setEmployeeLimitId(limitId);
-			updateEmployee(employee);
+			employee.setEmployeeLimit(employeeLimit);
+			return updateEmployee(employee);
 		} else {
-			Integer id = employeeLimitDao.getEmployeeLimitByLevel(employeeLimit).getId();
 			Employee employee2 = new Employee();
 			employee2.setEid(employeeId);
 			employee2.setName(employeeName);
 			employee2.setEmail(employeeEmail);
 			employee2.setPhone(employeePhone);
-			employee2.setEmployeeLimitId(id);
-			insertEmployee(employee2);
+			employee2.setEmployeeLimit(employeeLimit);
+			return insertEmployee(employee2);
 		}
 	}
 
