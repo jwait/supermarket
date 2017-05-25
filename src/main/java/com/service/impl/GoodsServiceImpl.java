@@ -1,5 +1,8 @@
 package com.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +15,7 @@ import com.dao.GoodsDao;
 import com.dao.GoodsSumDao;
 import com.dao.GoodsTypeDao;
 import com.pojo.Goods;
-import com.pojo.GoodsType;
+import com.pojo.GoodsSum;
 import com.service.GoodsService;
 
 @Service("goodsService")
@@ -29,7 +32,15 @@ public class GoodsServiceImpl implements GoodsService {
 	
 	@Override
 	public List<Goods> selectGoods() {
-		return goodsDao.selectGoods();
+		
+		List<Goods> list = goodsDao.selectGoods();
+		int goodsId;
+		for (Goods goods : list) {
+			goodsId = goods.getId();
+			GoodsSum goodsSum = goodsSumDao.getGoodsSumById(goodsId);
+			goods.setGoodsSum(goodsSum);
+		}
+		return list;
 	}
 
 	@Override
@@ -51,36 +62,45 @@ public class GoodsServiceImpl implements GoodsService {
 		String goodsCreatDate = request.getParameter("goodsCreatDate");
 		String goodsProducer = request.getParameter("goodsProducer");
 		String goodsSize = request.getParameter("goodsSize");
+		String goodsDesc = request.getParameter("goodsDesc");
 		Goods goods = goodsDao.getGoodsByName(goodsName);
 		if(goods != null){
 			Integer id = goods.getId();
 			goods.setPrice(goodsPrice);
 			goods.setDiscount(goodsDiscount);
 			goods.setSize(goodsSize);
+			goods.setDesc(goodsDesc);
 			if(goodsSumDao.getGoodsSumById(id) != null){
 				goodsSumDao.updateGoodsSum(id, sum);
 			} else {
-				goodsSumDao.insertSum(id, sum);
+				GoodsSum goodsSum = new GoodsSum(sum, id);
+				goodsSumDao.insertSum(goodsSum);
 			}
 			goodsDao.updateGoods(goods);
 			return "update";
 		} else {
-			Goods goods2 = new Goods();
-			goods2.setName(goodsName);
-			goods2.setPrice(goodsPrice);
-			goods2.setDiscount(goodsDiscount);
-			goods2.setSize(goodsSize);
-			goods2.setCreateDate(goodsCreatDate);
-			goods2.setProducer(goodsProducer);
-			goods2.setExpiryDate(goodsExpiryDate);
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = null;
+			try {
+				date = format.parse(goodsCreatDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			GoodsType goodsType = goodsTypeDao.getGoodsTypeByName(goodsTypeName);
-			goods2.setGoodsType(goodsType);
-			
-			int goodsId = goodsDao.insertGoods(goods);
-			goodsSumDao.insertSum(goodsId, sum);
+			insertGoods(goodsPrice, goodsDiscount, sum, goodsExpiryDate, goodsName, goodsTypeName, date, goodsProducer, goodsSize, goodsDesc);
 			return "insert";
 		}
+	}
+	
+	private void insertGoods(double goodsPrice, double goodsDiscount, int goodsSum, int goodsExpiryDate,
+			String goodsName, String goodsType, Date goodsCreatDate, String goodsProducer, String goodsSize, String goodsDesc) {
+		Goods goods = new Goods(goodsName, goodsPrice, goodsDiscount, goodsCreatDate, goodsExpiryDate, goodsProducer, goodsSize, goodsDesc);
+		goods.setGoodsType(goodsTypeDao.getGoodsTypeByName(goodsType));
+		goodsDao.insertGoods(goods);
+		int goodsId = goods.getId();
+		GoodsSum sum = new GoodsSum(goodsSum, goodsId);
+		goodsSumDao.insertSum(sum);
 	}
 
 	@Override

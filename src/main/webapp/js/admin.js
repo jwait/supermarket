@@ -38,6 +38,7 @@ $(".goods-modify").click(function() {
 	var offerBy = $(this).parents("tr").find(".offerBy").text();
 	var size = $(this).parents("tr").find(".size").text();
 	var sum = $(this).parents("tr").find(".sum").text();
+	var desc = $(this).parents("tr").find(".desc").text();
 
 	
 	$("#goods-form .form-gName").val(gName);
@@ -64,6 +65,7 @@ $(".goods-modify").click(function() {
 	});
 	$("#goods-form .form-size").val(size);
 	$("#goods-form .form-sum").val(sum);
+	$("#goods-form .form-desc").val(desc);
 	return false;
 });
 
@@ -94,6 +96,7 @@ $("#create-goods").click(function() {
 	});
 	$("#goods-form .form-size").val("");
 	$("#goods-form .form-sum").val("0");
+	$("#goods-form .form-desc").val("");
 	return false;
 });
 

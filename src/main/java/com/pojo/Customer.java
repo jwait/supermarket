@@ -15,6 +15,10 @@ public class Customer {
 
     private String isdelete;
     
+    private CustomerLogin customerLogin;
+    
+    private Getadress getadress;
+    
     public Integer getId() {
         return id;
     }
@@ -70,4 +74,22 @@ public class Customer {
     public void setIsdelete(String isdelete) {
         this.isdelete = isdelete == null ? null : isdelete.trim();
     }
+
+	public CustomerLogin getCustomerLogin() {
+		return customerLogin;
+	}
+
+	public void setCustomerLogin(CustomerLogin customerLogin) {
+		this.customerLogin = customerLogin;
+	}
+
+	public Getadress getGetadress() {
+		return getadress;
+	}
+
+	public void setGetadress(Getadress getadress) {
+		this.getadress = getadress;
+	}
+    
+    
 }

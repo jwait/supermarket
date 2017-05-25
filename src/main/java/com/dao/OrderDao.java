@@ -18,6 +18,8 @@ public class OrderDao {
 	
 	public List<Order> selectOrders(){
 		OrderExample example = new OrderExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIsdeleteEqualTo("N");
 		return orderMapper.selectByExample(example);
 	}
 
@@ -25,7 +27,11 @@ public class OrderDao {
 		OrderExample example = new OrderExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andOrderNumEqualTo(orderNum);
+		criteria.andIsdeleteEqualTo("N");
 		List<Order> list = orderMapper.selectByExample(example);
+		if (list == null || list.size() == 0){
+			return null;
+		}
 		return list.get(0);
 	}
 

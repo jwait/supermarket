@@ -36,10 +36,7 @@ public class GoodsSumDao {
 		goodsSumMapper.updateByPrimaryKey(goodsSum);
 	}
 
-	public void insertSum(Integer goodsId, Integer sum){
-		GoodsSum goodsSum = new GoodsSum();
-		goodsSum.setGoodsId(goodsId);
-		goodsSum.setSum(sum);
-		goodsSumMapper.insert(goodsSum);
+	public void insertSum(GoodsSum goodsSum){
+		goodsSumMapper.insertSelective(goodsSum);
 	}
 }

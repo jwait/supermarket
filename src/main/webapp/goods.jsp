@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>QK商城 - 后台管理系统</title>
+<title>在线商城 - 后台管理系统</title>
 
 <!-- 日期样式 -->
 <link rel="stylesheet" type="text/css" href="datecss/bootstrap.min.css" />
@@ -106,6 +106,7 @@
 									<th class="offerBy">生产商</th>
 									<th class="size">尺码</th>
 									<th class="sum">库存</th>
+									<th class="desc">描述</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -121,6 +122,7 @@
 										<td class="offerBy">${row.producer}</td>
 										<td class="size">${row.size}</td>
 										<td class="sum">${row.goodsSum.sum }</td>
+										<td class="desc">${row.desc }</td>
 										<td><a href="#" class="goods-modify">修改</a> <a href="#"
 											style="float: right; color: red;"
 											onclick="deleteGoods('${row.id}')">删除</a></td>
@@ -156,7 +158,7 @@
 								</div>
 
 								<div class="form-group">
-									<label>优惠信息</label> <input class="form-control form-discount"
+									<label>优惠信息(折扣：折)</label> <input class="form-control form-discount"
 										name="goodsDiscount" id="goodsDiscount">
 								</div>
 								<div class="form-group">
@@ -173,7 +175,7 @@
 										id="goodsCreatDate">
 								</div>
 								<div class="form-group">
-									<label>有效期</label> <input
+									<label>有效期（月）</label> <input
 										class="form-control form-expired-date" name="goodsExpiryDate"
 										id="goodsExpiryDate">
 								</div>
@@ -186,6 +188,10 @@
 								<div class="form-group">
 									<label>尺码</label> <input class="form-control form-size"
 										name="goodsSize" id="goodsSize">
+								</div>
+								<div class="form-group">
+									<label>描述</label> <input class="form-control form-desc"
+										name="goodsDesc" id="goodsDesc">
 								</div>
 							</div>
 							<div class="col-lg-8">
@@ -249,7 +255,8 @@
 				goodsCreatDate : $("#goodsCreatDate").val(),
 				goodsExpiryDate : $("#goodsExpiryDate").val(),
 				goodsProducer : $("#goodsProducer").val(),
-				goodsSize : $("#goodsSize").val()
+				goodsSize : $("#goodsSize").val(),
+				goodsDesc : $("#goodsDesc").val()
 			};
 
 			if (message.goodsName.trim() == "") {
@@ -288,6 +295,10 @@
 				$("#goodsSize").attr("placeholder", "请输入尺寸");
 				return false;
 			}
+			if (message.goodsDesc.trim() == "") {
+				$("#goodsDesc").attr("placeholder", "请输入描述");
+				return false;
+			}
 
 			$.ajax({
 				type : "post",
@@ -319,7 +330,7 @@
 	<script type="text/javascript" src="datejs/dcalendar.picker.js"></script>
 	<script type="text/javascript">
 		$('#goodsCreatDate').dcalendarpicker({
-			format : 'yyyy-mm-dd'
+			format : 'yyyy-MM-dd'
 		});
 	</script>
 

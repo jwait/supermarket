@@ -11,7 +11,7 @@ public interface OrderService {
 	
 	List<Order> selectOrders();
 
-	void ship(HttpServletRequest request, HttpServletResponse response);
+	int ship(HttpServletRequest request, HttpServletResponse response);
 
 	int deleteOrder(HttpServletRequest request, HttpServletResponse response);
 }

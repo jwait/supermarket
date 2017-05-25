@@ -1,6 +1,6 @@
 package com.pojo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Goods {
     private Integer id;
@@ -11,15 +11,13 @@ public class Goods {
 
     private Double discount;
 
-    private String createDate;
+    private Date createDate;
 
     private Integer expiryDate;
 
     private String size;
 
     private String producer;
-
-    private Integer goodsTypeId;
 
     private String desc;
 
@@ -33,8 +31,8 @@ public class Goods {
     	super();
     }
     
-    public Goods(String name, double price, double discount, String createDate, int expiryDate, String producer,
-			String size) {
+    public Goods(String name, double price, double discount, Date createDate, int expiryDate, String producer,
+			String size, String desc) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -43,6 +41,7 @@ public class Goods {
 		this.expiryDate = expiryDate;
 		this.producer = producer;
 		this.size = size;
+		this.desc = desc;
 	}
     
     public Integer getId() {
@@ -77,11 +76,11 @@ public class Goods {
         this.discount = discount;
     }
 
-    public String getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
@@ -107,14 +106,6 @@ public class Goods {
 
     public void setProducer(String producer) {
         this.producer = producer == null ? null : producer.trim();
-    }
-
-    public Integer getGoodsTypeId() {
-        return goodsTypeId;
-    }
-
-    public void setGoodsTypeId(Integer goodsTypeId) {
-        this.goodsTypeId = goodsTypeId;
     }
 
     public String getDesc() {

@@ -1,15 +1,19 @@
 package com.pojo;
 
+import java.util.List;
+
 public class Order {
     private Integer id;
 
     private String orderNum;
 
-    private Integer orderStatusId;
-
-    private Integer customerId;
-
     private String isdelete;
+    
+    private OrderStatus orderStatus;
+    
+    private Customer customer;
+    
+    private List<OrderItems> orderItems;
 
     public Integer getId() {
         return id;
@@ -27,22 +31,6 @@ public class Order {
         this.orderNum = orderNum == null ? null : orderNum.trim();
     }
 
-    public Integer getOrderStatusId() {
-        return orderStatusId;
-    }
-
-    public void setOrderStatusId(Integer orderStatusId) {
-        this.orderStatusId = orderStatusId;
-    }
-
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
-
     public String getIsdelete() {
         return isdelete;
     }
@@ -50,4 +38,29 @@ public class Order {
     public void setIsdelete(String isdelete) {
         this.isdelete = isdelete == null ? null : isdelete.trim();
     }
+
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public List<OrderItems> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItems> orderItems) {
+		this.orderItems = orderItems;
+	}
+    
 }

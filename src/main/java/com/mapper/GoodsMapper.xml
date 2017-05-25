@@ -109,17 +109,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pojo.Goods" >
+  <insert id="insert" parameterType="com.pojo.Goods" useGeneratedKeys="true" keyProperty="id">
     insert into goods (id, name, price, 
       discount, create_date, expiry_date, 
       size, producer, goods_type_id, 
       `desc`, isdelete)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
       #{discount,jdbcType=DOUBLE}, #{createDate,jdbcType=DATE}, #{expiryDate,jdbcType=INTEGER}, 
-      #{size,jdbcType=VARCHAR}, #{producer,jdbcType=VARCHAR}, #{goodsTypeId,jdbcType=INTEGER}, 
+      #{size,jdbcType=VARCHAR}, #{producer,jdbcType=VARCHAR}, #{goodsType.id,jdbcType=INTEGER}, 
       #{desc,jdbcType=VARCHAR}, #{isdelete,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.pojo.Goods" >
+  <insert id="insertSelective" parameterType="com.pojo.Goods" useGeneratedKeys="true" keyProperty="id">
     insert into goods
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -146,7 +146,7 @@
       <if test="producer != null" >
         producer,
       </if>
-      <if test="goodsTypeId != null" >
+      <if test="goodsType != null" >
         goods_type_id,
       </if>
       <if test="desc != null" >
@@ -181,8 +181,8 @@
       <if test="producer != null" >
         #{producer,jdbcType=VARCHAR},
       </if>
-      <if test="goodsTypeId != null" >
-        #{goodsTypeId,jdbcType=INTEGER},
+      <if test="goodsType != null" >
+        #{goodsType.id,jdbcType=INTEGER},
       </if>
       <if test="desc != null" >
         #{desc,jdbcType=VARCHAR},
@@ -225,8 +225,8 @@
       <if test="record.producer != null" >
         producer = #{record.producer,jdbcType=VARCHAR},
       </if>
-      <if test="record.goodsTypeId != null" >
-        goods_type_id = #{record.goodsTypeId,jdbcType=INTEGER},
+      <if test="record.goodsType != null" >
+        goods_type_id = #{record.goodsType.id,jdbcType=INTEGER},
       </if>
       <if test="record.desc != null" >
         `desc` = #{record.desc,jdbcType=VARCHAR},
@@ -249,7 +249,7 @@
       expiry_date = #{record.expiryDate,jdbcType=INTEGER},
       size = #{record.size,jdbcType=VARCHAR},
       producer = #{record.producer,jdbcType=VARCHAR},
-      goods_type_id = #{record.goodsTypeId,jdbcType=INTEGER},
+      goods_type_id = #{record.goodsType.id,jdbcType=INTEGER},
       `desc` = #{record.desc,jdbcType=VARCHAR},
       isdelete = #{record.isdelete,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -280,8 +280,8 @@
       <if test="producer != null" >
         producer = #{producer,jdbcType=VARCHAR},
       </if>
-      <if test="goodsTypeId != null" >
-        goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
+      <if test="goodsType != null" >
+        goods_type_id = #{goodsType.id,jdbcType=INTEGER},
       </if>
       <if test="desc != null" >
         `desc` = #{desc,jdbcType=VARCHAR},
@@ -301,7 +301,7 @@
       expiry_date = #{expiryDate,jdbcType=INTEGER},
       size = #{size,jdbcType=VARCHAR},
       producer = #{producer,jdbcType=VARCHAR},
-      goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
+      goods_type_id = #{goodsType.id,jdbcType=INTEGER},
       `desc` = #{desc,jdbcType=VARCHAR},
       isdelete = #{isdelete,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

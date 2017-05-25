@@ -14,8 +14,18 @@ public class GoodsSum {
     public void setId(Integer id) {
         this.id = id;
     }
+    
+    public GoodsSum() {
+		// TODO Auto-generated constructor stub
+	}
+    
+    public GoodsSum(Integer sum, Integer goodsId) {
+		super();
+		this.sum = sum;
+		this.goodsId = goodsId;
+	}
 
-    public Integer getSum() {
+	public Integer getSum() {
         return sum;
     }
 

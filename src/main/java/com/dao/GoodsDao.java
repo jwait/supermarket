@@ -9,12 +9,16 @@ import com.mapper.GoodsMapper;
 import com.pojo.Goods;
 import com.pojo.GoodsExample;
 import com.pojo.GoodsExample.Criteria;
+import com.pojo.GoodsType;
 
 @Repository
 public class GoodsDao {
 
 	@Autowired
 	private GoodsMapper goodsMapper;
+	
+	@Autowired
+	private GoodsTypeDao goodsTypeDao;
 	
 	public Goods getGoodsById(int goodsId){
 		return goodsMapper.selectByPrimaryKey(goodsId);
@@ -40,16 +44,16 @@ public class GoodsDao {
 	}
 
 	public int updateGoods(Goods goods){
-		return goodsMapper.updateByPrimaryKey(goods);
+		return goodsMapper.updateByPrimaryKeySelective(goods);
 	}
 
 	public int deleteGoodsById(int goodsId){
 		Goods goods = getGoodsById(goodsId);
 		goods.setIsdelete("Y");
-		return goodsMapper.updateByPrimaryKey(goods);
+		return goodsMapper.updateByPrimaryKeySelective(goods);
 	}
 
 	public int insertGoods(Goods goods){
-		return goodsMapper.insert(goods);
+		return goodsMapper.insertSelective(goods);
 	}
 }

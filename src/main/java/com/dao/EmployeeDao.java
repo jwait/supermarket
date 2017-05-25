@@ -17,9 +17,7 @@ public class EmployeeDao {
 	private EmployeeMapper employeeMapper;
 	
 	public int insertEmployee(Employee employee){
-		employee.setPassword("123456");
-		employee.setIsdelete("N");
-		return employeeMapper.insert(employee);
+		return employeeMapper.insertSelective(employee);
 	}
 
 	public int deleteEmployee(Employee employee){

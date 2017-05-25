@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>QK商城 - 后台管理系统</title>
+<title>在线商城 - 后台管理系统</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +37,7 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.jsp">QK商城 - 后台管理系统</a>
+			<a class="navbar-brand" href="index.jsp">在线商城 - 后台管理系统</a>
 		</div>
 		<!-- Top Menu Items -->
 		<ul class="nav navbar-right top-nav">
@@ -98,7 +98,7 @@
 									<th class="">订单号</th>
 									<th class="">订单状态</th>
 									<th class="">收货地址</th>
-									<th></th>
+									<th class="">操作</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -107,16 +107,19 @@
 									<tr>
 										<td class="">${row.orderNum }</td>
 										<td class="">${row.orderStatus.status }</td>
-										<td class="">${row.customer.getAdress.adress }</td>
-										<td><c:choose>
+										<td class="">${row.customer.getadress.adress }</td>
+										<td class="">
+											<c:choose>
 												<c:when test="${row.orderStatus.id==2 }">
 													<a href="#" onclick="ship('${row.orderNum}')">发货</a>
 												</c:when>
 												<c:otherwise>
 													<a href="javascript:void(0);">-</a>
 												</c:otherwise>
-											</c:choose><a href="#" style="float: right; color: red;"
-											onclick="deleteOrder('${row.orderNum}')">删除</a></td>
+											</c:choose>
+											<a href="#" style="float: right; color: red;"
+											onclick="deleteOrder('${row.orderNum}')">删除</a>
+										</td>
 									</tr>
 								</c:forEach>
 
@@ -145,6 +148,7 @@
 				dataType : "text",
 				success : function(result) {
 					if (result == 1) {
+						alert("修改成功");
 						location.href = "showOrders.action";
 					} else {
 						alert("操作失败");
@@ -168,6 +172,7 @@
 					dataType : "text",
 					success : function(result) {
 						if (result == 1) {
+							alert("修改成功");
 							location.href = "showOrders.action";
 						} else {
 							alert("操作失败");
@@ -178,6 +183,7 @@
 					}
 				});
 			}
+			return false;
 		}
 	</script>
 
