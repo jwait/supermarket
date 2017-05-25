@@ -16,9 +16,9 @@ public class GoodsTypeDao {
 	@Autowired
 	private GoodsTypeMapper goodsTypeMapper;
 	
-	public GoodsType getGoodsTypeById(int goodsTypeId){
-		return goodsTypeMapper.selectByPrimaryKey(goodsTypeId);
-	}
+//	public GoodsType getGoodsTypeById(int goodsTypeId){
+//		return goodsTypeMapper.selectByPrimaryKey(goodsTypeId);
+//	}
 
 	public GoodsType getGoodsTypeByName(String goodsTypeName){
 		GoodsTypeExample example = new GoodsTypeExample();

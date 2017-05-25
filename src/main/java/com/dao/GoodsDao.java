@@ -9,16 +9,12 @@ import com.mapper.GoodsMapper;
 import com.pojo.Goods;
 import com.pojo.GoodsExample;
 import com.pojo.GoodsExample.Criteria;
-import com.pojo.GoodsType;
 
 @Repository
 public class GoodsDao {
 
 	@Autowired
 	private GoodsMapper goodsMapper;
-	
-	@Autowired
-	private GoodsTypeDao goodsTypeDao;
 	
 	public Goods getGoodsById(int goodsId){
 		return goodsMapper.selectByPrimaryKey(goodsId);

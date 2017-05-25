@@ -100,7 +100,7 @@
 									<th class="gName">名称</th>
 									<th class="price">价格</th>
 									<th class="type">类别</th>
-									<th class="discount">优惠信息</th>
+									<th class="discount">优惠信息(折扣)</th>
 									<th class="date">生产日期</th>
 									<th class="expired-date">有效期</th>
 									<th class="offerBy">生产商</th>

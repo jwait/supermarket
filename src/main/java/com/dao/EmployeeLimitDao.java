@@ -16,15 +16,18 @@ public class EmployeeLimitDao {
 	@Autowired
 	private EmployeeLimitMapper employeeLimitMapper;
 	
-	public EmployeeLimit getLimitById(int id){
-		return employeeLimitMapper.selectByPrimaryKey(id);
-	}
+//	public EmployeeLimit getLimitById(int id){
+//		return employeeLimitMapper.selectByPrimaryKey(id);
+//	}
 	
 	public EmployeeLimit getEmployeeLimitByLevel(String level){
 		EmployeeLimitExample example = new EmployeeLimitExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andLevelEqualTo(level);
 		List<EmployeeLimit> list = employeeLimitMapper.selectByExample(example);
+		if (list == null || list.size() == 0){
+			return null;
+		}
 		return list.get(0);
 	}
 	
